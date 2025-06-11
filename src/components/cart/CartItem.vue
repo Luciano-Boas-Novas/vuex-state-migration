@@ -1,3 +1,27 @@
+<script>
+import { computed } from 'vue'
+import { useEcommerceStore } from '../../store.js'
+
+export default {
+  props: ['prodId', 'title', 'image', 'price', 'qty'],
+  setup(props) {
+    const ecommerceStore = useEcommerceStore()
+
+    const itemTotal = computed(() => (props.price * props.qty).toFixed(2))
+
+    function remove() {
+      ecommerceStore.removeProductFromCart(props.prodId)
+    }
+
+    return {
+      itemTotal,
+      remove,
+    }
+  },
+}
+</script>
+
+
 <template>
   <li>
     <div>
@@ -20,23 +44,6 @@
     </div>
   </li>
 </template>
-
-<script>
-export default {
-  inject: ['removeProductFromCart'],
-  props: ['prodId', 'title', 'image', 'price', 'qty'],
-  computed: {
-    itemTotal() {
-      return (this.price * this.qty).toFixed(2);
-    }
-  },
-  methods: {
-    remove() {
-      this.removeProductFromCart(this.prodId);
-    }
-  }
-};
-</script>
 
 <style scoped>
 li {

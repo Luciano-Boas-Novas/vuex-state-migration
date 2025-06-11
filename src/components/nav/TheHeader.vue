@@ -18,16 +18,36 @@
       </ul>
     </nav>
     <div>
-      <button v-if="!isLoggedIn" @click="login">Login</button>
+      <button v-if="!isLoggedIn"  @click="login">Login</button>
       <button v-if="isLoggedIn" @click="logout">Logout</button>
     </div>
   </header>
 </template>
 
 <script>
+import { computed } from 'vue';
+import { useEcommerceStore } from '../../store.js';
+
+
+
+
+
+
 export default {
-  inject: ['isLoggedIn', 'login', 'logout', 'cart'],
+  setup() {
+    const store = useEcommerceStore();
+
+    const isLoggedIn = computed(() => store.isLoggedIn);
+    const cart = computed(() => store.cart);
+
+    const login = () => store.login();
+    const logout = () => store.logout();
+
+    return { isLoggedIn, cart, login, logout };
+  }
 };
+
+
 </script>
 
 <style scoped>
