@@ -4,30 +4,14 @@
 </template>
 
 <script>
+import { useEcommerceStore} from './store.js';
 import TheHeader from './components/nav/TheHeader.vue';
 
 export default {
   components: {
     TheHeader
   },
-  data() {
-    return {
-      isLoggedIn: false,
-      
-      cart: { items: [], total: 0, qty: 0 },
-    };
-  },
-  provide() {
-    return {
-      isLoggedIn: this.isLoggedIn,
-      products: this.products,
-      cart: this.cart,
-      addProductToCart: this.addProductToCart,
-      removeProductFromCart: this.removeProductFromCart,
-      login: this.login,
-      logout: this.logout,
-    };
-  },
+ 
   methods: {
     addProductToCart(productData) {
       const productInCartIndex = this.cart.items.findIndex(

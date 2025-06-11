@@ -18,17 +18,23 @@
 
 <script>
 import CartItem from '../components/cart/CartItem.vue';
+import { useEcommerceStore } from '../store.js';
+import { computed } from 'vue';
 
 export default {
-  inject: ['cart'],
+
   components: {
     CartItem,
   },
-  computed: {
-    cartTotal() {
-      return this.cart.total.toFixed(2);
-    }
-  }
+
+  setup() {
+    const store = useEcommerceStore();
+
+    const cart = computed(() => store.cart);
+    const cartTotal = computed(() => store.cart.total.toFixed(2));
+
+    return { cart, cartTotal };
+  },
 };
 </script>
 
