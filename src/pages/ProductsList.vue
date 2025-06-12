@@ -16,12 +16,21 @@
 
 <script>
 import ProductItem from '../components/products/ProductItem.vue';
-
+import { useEcommerceStore } from '../store.js';
+import { computed } from 'vue';
 export default {
 
   components: {
     ProductItem,
   },
+
+  setup() {
+    const store = useEcommerceStore();
+    const products = computed(() => store.products);
+
+    return { products };
+  }
+
 };
 </script>
 

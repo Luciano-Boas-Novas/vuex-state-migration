@@ -19,21 +19,27 @@
 </template>
 
 <script>
+import { useEcommerceStore } from '../../store.js';
+
 export default {
-  inject: ['addProductToCart'],
-  props: ['id', 'image', 'title', 'price', 'description'],
-  methods: {
-    addToCart() {
-      this.addProductToCart({
-        id: this.id,
-        image: this.image,
-        title: this.title,
-        price: this.price,
+props: ['id','title','image','description','price'],
+  setup(props) {
+    const store = useEcommerceStore();
+
+    function addToCart() {
+      store.addProductToCart({
+        id: props.id,
+        image: props.image,
+        title: props.title,
+        price: props.price,
       });
-    },
+    }
+
+    return { addToCart };
   },
 };
 </script>
+
 
 <style scoped>
 li {
